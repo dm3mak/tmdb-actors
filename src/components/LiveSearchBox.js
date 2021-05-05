@@ -22,13 +22,19 @@ class LiveSearchBox  extends React.Component{
         })
         this.props.onSearchChange(val)
     }
+    resultSelected = (index) =>{
+        this.props.onResultSelected(index);
+        this.setState({
+            searchText: ''
+        });
+        this.props.onSearchChange('')
+    }
     render() {
         const listIltems = this.props.results.map((res, index)=> {
-            return <li onClick={() => this.props.onResultSelected(index)} key = {index}>{res}</li>
+            return <li onClick={() => this.resultSelected(index)} key = {index}>{res.name}</li>
         })
         return(
             <div className="c-live-search-box">
-                I am the Live search Box
                 <input onChange={this.updateText} value={this.state.searchText} placeholder={this.props.placeholder}/>
                 <ul>
                     {listIltems}
